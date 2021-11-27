@@ -25,11 +25,14 @@ public class PlayerBehaviour : MonoBehaviour
     private Rigidbody2D rigidbody;
     private Animator animatorController;
 
+    [Header("Sound fx")]
+    public AudioSource jumpSound;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         animatorController = GetComponent<Animator>();
+        jumpSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -50,7 +53,10 @@ public class PlayerBehaviour : MonoBehaviour
             float jump = Input.GetAxisRaw("Jump") + ((UIController.jumpButtonDown) ? 1.0f : 0.0f);
 
             // Check for Flip
-
+            if(jump>0)
+			{
+                jumpSound.Play();
+			}
             if (x != 0)
             {
                 x = FlipAnimation(x);
